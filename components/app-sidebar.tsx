@@ -4,29 +4,60 @@ import * as React from "react"
 
 import { NavMain } from "@/components/nav-main"
 import { NavUser } from "@/components/nav-user"
+import { TeamSwitcher } from "@/components/team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
+  SidebarRail,
 } from "@/components/ui/sidebar"
-import { TerminalSquareIcon, BookOpenIcon, Settings2Icon, LifeBuoyIcon, SendIcon, FrameIcon, PieChartIcon, MapIcon, TerminalIcon, Tag, Settings, CalendarRange } from "lucide-react"
+import { GalleryVerticalEndIcon, AudioLinesIcon, TerminalIcon, TerminalSquareIcon, BotIcon, BookOpenIcon, Settings2Icon, FrameIcon, PieChartIcon, MapIcon, ToolCase, Settings, Tag, CreditCard } from "lucide-react"
+import Image from "next/image"
 
+// This is sample data.
 const data = {
   user: {
     name: "shadcn",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
+  teams: [
+    {
+      name: "Acme Inc",
+      logo: (
+        <Image
+        src={"/fox-wild-animal-fur-vixen-svgrepo-com.svg"}
+        alt="Icone da raposa"
+        width={20}
+        height={20}
+        />
+      ),
+      plan: "Empresa",
+    },
+    {
+      name: "Acme Corp.",
+      logo: (
+        <AudioLinesIcon
+        />
+      ),
+      plan: "Startup",
+    },
+    {
+      name: "Evil Corp.",
+      logo: (
+        <TerminalIcon
+        />
+      ),
+      plan: "Free",
+    },
+  ],
   navMain: [
     {
       title: "Eventos",
       url: "#",
       icon: (
-        <CalendarRange
+        <CreditCard
         />
       ),
       isActive: true,
@@ -52,7 +83,29 @@ const data = {
       ],
     },
     {
-      title: "Configuração",
+      title: "Documentation",
+      url: "#",
+      icon: (
+        <BookOpenIcon
+        />
+      ),
+      items: [
+        {
+          title: "Eventos",
+          url: "#",
+        },
+        {
+          title: "Tags",
+          url: "#",
+        },
+        {
+          title: "Configurações",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Configurações",
       url: "#",
       icon: (
         <Settings
@@ -60,7 +113,7 @@ const data = {
       ),
       items: [
         {
-          title: "Login",
+          title: "Logins",
           url: "#",
         },
         {
@@ -69,55 +122,14 @@ const data = {
         }
       ],
     },
-     {
-      title: "Documentação",
-      url: "#",
-      icon: (
-        <BookOpenIcon
-        />
-      ),
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    }
-  ],
-  
+  ]
 }
+
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar
-      className="top-(--header-height) h-[calc(100svh-var(--header-height))]!"
-      {...props}
-    >
+    <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton size="lg" render={<a href="#" />}>
-              <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <TerminalIcon className="size-4" />
-              </div>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">Acme Inc</span>
-                <span className="truncate text-xs">Enterprise</span>
-              </div>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
@@ -125,6 +137,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarFooter>
         <NavUser user={data.user} />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }

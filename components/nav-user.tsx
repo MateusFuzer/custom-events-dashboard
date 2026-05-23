@@ -38,10 +38,7 @@ export function NavUser({
         <DropdownMenu>
           <DropdownMenuTrigger
             render={
-              <SidebarMenuButton
-                size="lg"
-                className="aria-expanded:bg-muted aria-expanded:text-foreground"
-              />
+              <SidebarMenuButton size="lg" className="aria-expanded:bg-muted" />
             }
           >
             <Avatar>
@@ -101,13 +98,11 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <LogOutIcon
-                />
-                Log out
-              </DropdownMenuItem>
-            </DropdownMenuGroup>
+            <DropdownMenuItem>
+              <LogOutIcon
+              />
+              Log out
+            </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
